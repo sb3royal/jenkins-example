@@ -1,30 +1,42 @@
 pipeline {
     agent any
 
+    environment {
+        // Set JAVA_HOME to Java 17 installation path
+        JAVA_HOME = '/path/to/java/17'
+        PATH = "${JAVA_HOME}/bin:${env.PATH}"
+    }
+
     stages {
-        stage ('Compile Stage') {
-
+        stage('Compile Stage') {
             steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    sh 'mvn clean compile'
+                script {
+                    // Use Java 17 and Maven 3.8.4 (or the version you have installed)
+                    withMaven(maven: 'maven_3_8_4', jdk: 'Java17') {
+                        sh 'mvn clean compile'
+                    }
                 }
             }
         }
 
-        stage ('Testing Stage') {
-
+        stage('Testing Stage') {
             steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    sh 'mvn test'
+                script {
+                    // Use Java 17 and Maven 3.8.4 (or the version you have installed)
+                    withMaven(maven: 'maven_3_8_4', jdk: 'Java17') {
+                        sh 'mvn test'
+                    }
                 }
             }
         }
 
-
-        stage ('Deployment Stage') {
+        stage('Deployment Stage') {
             steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    sh 'mvn deploy'
+                script {
+                    // Use Java 17 and Maven 3.8.4 (or the version you have installed)
+                    withMaven(maven: 'maven_3_8_4', jdk: 'Java17') {
+                        sh 'mvn deploy'
+                    }
                 }
             }
         }
