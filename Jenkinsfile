@@ -8,6 +8,19 @@ pipeline {
     }
 
     stages {
+        stage('Build') {
+            steps {
+                script {
+                    // Use the withMaven step here
+                    withMaven(maven: 'MavenInstallationName') {
+                        sh 'mvn clean install'
+                    }
+                }
+            }
+        }
+    }
+
+    stages {
         stage('Compile Stage') {
             steps {
                 script {
